@@ -1,3 +1,3 @@
 # recipes
 Food Recipes
-https://krplaybook.github.io/recipes/index.html
+https://krplaybook.github.io/yummy/menu.html

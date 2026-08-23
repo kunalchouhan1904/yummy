@@ -1,7 +1,10 @@
 /* =========================================================
-   KUNAL & RUCHI RECIPES — RECIPE PAGE
-   Replace the existing recipe.css with this file.
-   Ingredients and method text remain untouched.
+   KUNAL & RUCHI RECIPES — RECIPE PAGE V2
+   Indian Home Kitchen / Premium Cookbook Layout
+
+   IMPORTANT:
+   - Recipe ingredients and method text are NOT changed.
+   - This file changes layout, spacing, typography and visual styling only.
 ========================================================= */
 
 *,
@@ -10,86 +13,410 @@
   box-sizing: border-box;
 }
 
-.recipe-page {
-  overflow-x: hidden;
+/* =========================================================
+   PAGE SCROLLING
+   The old internal-scroll + sticky-footer combination made
+   long recipe methods appear underneath the footer.
+========================================================= */
+
+.recipe-page.app-layout {
+  height: auto;
+  min-height: 100vh;
+  grid-template-rows: auto auto auto;
 }
 
-/* Keep recipe detail layout safely within the viewport */
+.recipe-page .app-content {
+  overflow: visible;
+  min-height: 0;
+}
+
+.recipe-page .app-footer {
+  position: relative;
+  bottom: auto;
+}
+
+/* =========================================================
+   BACK LINK
+========================================================= */
+
+.recipe-page .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 28px auto 0;
+  padding: 8px 14px;
+  color: #5d6849;
+  background: rgba(255, 253, 248, 0.78);
+  border: 1px solid #ddd2c0;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 5px 16px rgba(70, 45, 25, 0.05);
+  transition: all 0.22s ease;
+}
+
+.recipe-page .back-link:hover {
+  color: #91462b;
+  border-color: #c98a6d;
+  background: #fffdf8;
+  transform: translateX(-2px);
+}
+
+/* Center the back link without changing the HTML */
+.recipe-page > .app-content > .back-link {
+  margin-left: clamp(18px, 5vw, 70px);
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.recipe-page .recipe-title {
+  max-width: 1100px;
+  margin: 18px auto 42px;
+  padding: 0 20px;
+  text-align: center;
+  color: #3b2d25;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 0.92;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.recipe-page .recipe-title::before {
+  content: "FROM OUR HOME KITCHEN";
+  display: block;
+  margin-bottom: 13px;
+  color: #697451;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.recipe-page .recipe-title::after {
+  content: "";
+  display: block;
+  width: 58px;
+  height: 3px;
+  margin: 18px auto 0;
+  background: #b85c38;
+  border-radius: 5px;
+}
+
+/* =========================================================
+   MAIN RECIPE COMPOSITION
+
+   OLD:
+   Ingredients | Cartoon image | Method
+
+   NEW:
+                 BEAUTIFUL HERO IMAGE
+           ────────────────────────────
+             Ingredients | Method
+
+   This gives the recipe page a cookbook/editorial feel.
+========================================================= */
+
 .recipe-page .recipe-grid {
   display: grid;
-  grid-template-columns: 3fr 3fr 4fr;
-  gap: 24px;
-  max-width: 1200px;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  grid-template-areas:
+    "image image"
+    "ingredients method";
+  gap: 30px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 0 24px;
   align-items: start;
 }
 
-/* Image column */
+/* HTML order is preserved; CSS only changes visual placement */
+.recipe-page .recipe-grid > .recipe-image {
+  grid-area: image;
+}
+
+.recipe-page .recipe-grid > .recipe-box:first-child {
+  grid-area: ingredients;
+}
+
+.recipe-page .recipe-grid > .recipe-box:last-child {
+  grid-area: method;
+}
+
+/* =========================================================
+   HERO IMAGE
+========================================================= */
+
 .recipe-page .recipe-image {
+  position: relative;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  min-width: 0;
+  align-items: center;
+  min-height: 330px;
+  padding: 22px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.82), rgba(247,239,225,0.92));
+  border: 1px solid #e3d6c3;
+  border-radius: 24px;
+  box-shadow:
+    0 18px 45px rgba(65, 43, 28, 0.11),
+    inset 0 0 0 8px rgba(255,255,255,0.38);
+  overflow: hidden;
+}
+
+.recipe-page .recipe-image::before,
+.recipe-page .recipe-image::after {
+  position: absolute;
+  color: #c59b52;
+  font-family: Georgia, serif;
+  font-size: 1.4rem;
+  opacity: 0.75;
+}
+
+.recipe-page .recipe-image::before {
+  content: "✦";
+  top: 17px;
+  left: 23px;
+}
+
+.recipe-page .recipe-image::after {
+  content: "✦";
+  right: 23px;
+  bottom: 17px;
 }
 
 .recipe-page .recipe-image img {
-  width: 100%;
-  height: auto;
-  max-height: 480px;
-  object-fit: contain;
+  position: relative;
+  z-index: 1;
   display: block;
+  width: auto;
+  max-width: min(100%, 560px);
+  height: auto;
+  max-height: 410px;
+  object-fit: contain;
+  border-radius: 14px;
+  filter: drop-shadow(0 14px 18px rgba(60, 40, 25, 0.16));
 }
 
-/* Premium spacing for the method/ingredients panels */
+/* =========================================================
+   CONTENT CARDS
+========================================================= */
+
 .recipe-page .recipe-box {
+  position: relative;
   min-width: 0;
+  background: rgba(255, 253, 248, 0.96);
+  border: 1px solid #e2d6c5;
+  border-radius: 20px;
+  padding: 28px 30px 30px;
+  box-shadow: 0 12px 32px rgba(65, 43, 28, 0.075);
+}
+
+.recipe-page .recipe-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 28px;
+  width: 48px;
+  height: 4px;
+  border-radius: 0 0 5px 5px;
+  background: #697451;
+}
+
+.recipe-page .recipe-box h3 {
+  margin: 0 0 20px;
+  color: #3b2d25;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 700;
 }
 
 .recipe-page .recipe-box ul,
 .recipe-page .recipe-box ol {
-  overflow-wrap: anywhere;
+  margin: 0;
+  padding-left: 24px;
 }
 
-/* Video remains full-width and responsive */
+.recipe-page .recipe-box li {
+  margin: 0 0 11px;
+  color: #625449;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.62;
+}
+
+.recipe-page .recipe-box li:last-child {
+  margin-bottom: 0;
+}
+
+.recipe-page .recipe-box li::marker {
+  color: #b85c38;
+  font-weight: 800;
+}
+
+.recipe-page .recipe-box:first-child {
+  background:
+    linear-gradient(rgba(255,253,248,0.95), rgba(255,253,248,0.95)),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 30px,
+      rgba(105,116,81,0.035) 31px
+    );
+}
+
+/* Method card gets slightly more width and reading comfort */
+.recipe-page .recipe-box:last-child li {
+  padding-left: 3px;
+}
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
 .recipe-page .recipe-video {
-  max-width: 1200px;
-  margin: 56px auto 70px;
+  max-width: 1120px;
+  margin: 58px auto 76px;
   padding: 0 24px;
 }
 
-.recipe-page .recipe-video iframe {
-  width: 100%;
-  height: 480px;
-  border: none;
+.recipe-page .recipe-video::before {
+  content: "WATCH THE RECIPE";
+  display: block;
+  margin-bottom: 13px;
+  color: #697451;
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-align: center;
 }
 
-/* Tablet / mobile */
-@media (max-width: 992px) {
+.recipe-page .recipe-video::after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 2px;
+  margin: -6px auto 18px;
+  background: #b85c38;
+}
+
+.recipe-page .recipe-video iframe {
+  display: block;
+  width: 100%;
+  height: 520px;
+  border: 1px solid #dfd2bf;
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(65, 43, 28, 0.12);
+  background: #251e19;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 850px) {
   .recipe-page .recipe-grid {
     grid-template-columns: 1fr;
-    padding: 0 16px;
+    grid-template-areas:
+      "image"
+      "ingredients"
+      "method";
+    gap: 22px;
   }
 
   .recipe-page .recipe-image {
-    order: -1;
+    min-height: 280px;
   }
 
   .recipe-page .recipe-image img {
-    max-height: 360px;
-  }
-
-  .recipe-page .recipe-video {
-    padding: 0 16px;
+    max-height: 350px;
   }
 
   .recipe-page .recipe-video iframe {
-    height: 300px;
+    height: 390px;
   }
 }
 
+/* =========================================================
+   MOBILE
+========================================================= */
+
 @media (max-width: 600px) {
+  .recipe-page .back-link {
+    margin-top: 18px;
+    margin-left: 16px;
+  }
+
+  .recipe-page .recipe-title {
+    margin-top: 22px;
+    margin-bottom: 30px;
+    padding: 0 16px;
+    font-size: 3rem;
+  }
+
+  .recipe-page .recipe-title::before {
+    font-size: 0.62rem;
+    letter-spacing: 0.17em;
+  }
+
+  .recipe-page .recipe-grid {
+    padding: 0 14px;
+    gap: 16px;
+  }
+
+  .recipe-page .recipe-image {
+    min-height: 230px;
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .recipe-page .recipe-image img {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 11px;
+  }
+
+  .recipe-page .recipe-box {
+    padding: 23px 20px 24px;
+    border-radius: 16px;
+  }
+
+  .recipe-page .recipe-box::before {
+    left: 21px;
+  }
+
+  .recipe-page .recipe-box h3 {
+    font-size: 1.8rem;
+  }
+
+  .recipe-page .recipe-box li {
+    font-size: 0.88rem;
+    line-height: 1.58;
+    margin-bottom: 10px;
+  }
+
+  .recipe-page .recipe-video {
+    margin: 40px auto 55px;
+    padding: 0 14px;
+  }
+
   .recipe-page .recipe-video iframe {
-    height: 240px;
+    height: 235px;
+    border-radius: 16px;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .recipe-page * {
+    transition: none !important;
   }
 }

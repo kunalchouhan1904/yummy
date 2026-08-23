@@ -26,6 +26,7 @@
   overflow-x: hidden !important;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
+   align-items: stretch;
 }
 
 .recipe-page .app-footer {
@@ -247,23 +248,23 @@
 
 /* Compact hero: enough presence, but recipe information stays visible */
 .recipe-page .recipe-image {
-  position:relative;
-  height:310px;
-  min-height:310px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:8px 20px;
-  overflow:hidden;
+  position: relative;
+  min-height: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
   background:
-    radial-gradient(circle at 17% 50%,rgba(196,155,85,.10),transparent 15rem),
-    radial-gradient(circle at 84% 50%,rgba(102,115,78,.075),transparent 16rem),
-    linear-gradient(135deg,#fffdf9,#f4eadb);
-  border:1px solid var(--line);
-  border-radius:20px;
-  box-shadow:var(--shadow);
+    radial-gradient(circle at 17% 50%, rgba(196,155,85,.10), transparent 15rem),
+    radial-gradient(circle at 84% 50%, rgba(102,115,78,.075), transparent 16rem),
+    linear-gradient(135deg, #fffdf9, #f4eadb);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
 }
-
 .recipe-page .recipe-image::before,
 .recipe-page .recipe-image::after {
   position:absolute;
@@ -277,14 +278,14 @@
 .recipe-page .recipe-image::after { content:"✦"; right:19px; bottom:15px; }
 
 .recipe-page .recipe-image img {
-  display:block;
-  width:auto;
-  max-width:min(100%,470px);
-  max-height:300px;
-  height:auto;
-  object-fit:contain;
-  border-radius:11px;
-  filter:drop-shadow(0 12px 18px rgba(52,37,25,.16));
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 11px;
+  filter: drop-shadow(0 12px 18px rgba(52,37,25,.16));
 }
 
 /* Ingredients panel */
@@ -483,13 +484,17 @@
 
   .recipe-page .recipe-grid {
     width:calc(100% - 16px);
-    grid-template-columns:1fr;
     grid-template-areas:
       "image"
       "ingredients"
       "method";
-    gap:12px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: stretch;  
   }
+
+
 
   .recipe-page .recipe-image {
     height:auto;

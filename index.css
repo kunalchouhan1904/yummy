@@ -1,184 +1,601 @@
-/* =========================
-   APP LAYOUT (INDEX ONLY)
-========================= */
+/* =========================================================
+   KUNAL & RUCHI RECIPES — INDIAN HOME KITCHEN THEME
+   Replace the existing style.css with this file.
+   Recipe content/text is not changed by this stylesheet.
+========================================================= */
 
-html, body {
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --cream: #f7f1e6;
+  --cream-light: #fbf8f2;
+  --card: #fffdf8;
+  --terracotta: #b85c38;
+  --terracotta-dark: #91462b;
+  --olive: #697451;
+  --olive-dark: #4f5b3d;
+  --brown: #3b2d25;
+  --brown-soft: #6f5c4e;
+  --gold: #c59b52;
+  --line: #e7dccb;
+  --shadow: 0 12px 35px rgba(70, 45, 25, 0.09);
+  --shadow-hover: 0 20px 45px rgba(70, 45, 25, 0.16);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
   height: 100%;
   margin: 0;
 }
 
-.app-layout {
-  display: grid;
-  grid-template-rows: auto 1fr auto; /* header | scroll | footer */
-  height: 100vh;
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--cream);
+  color: var(--brown);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 /* =========================
-   HEADER (STICKY)
+   APP LAYOUT
+========================= */
+
+.app-layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+  background: var(--cream);
+}
+
+/* =========================
+   HEADER
 ========================= */
 
 .app-header {
-  background: #343a40;
-  color: #ffffff;
-  padding: 14px 20px;
-  font-size: 1.1rem;
-  font-weight: 600;
   position: sticky;
   top: 0;
   z-index: 100;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 14px clamp(18px, 4vw, 54px);
+  background: rgba(59, 45, 37, 0.98);
+  color: #fffaf1;
+  border-bottom: 3px solid var(--terracotta);
+  font-family: "DM Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 18px rgba(45, 30, 20, 0.13);
+}
+
+/* Small decorative culinary accent */
+.app-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 92px;
+  height: 3px;
+  background: var(--gold);
 }
 
 /* =========================
-   FOOTER (STICKY)
+   FOOTER
 ========================= */
 
 .app-footer {
-  background: #343a40;
-  color: #ffffff;
-  text-align: center;
-  padding: 10px;
-  font-size: 0.9rem;
   position: sticky;
   bottom: 0;
   z-index: 100;
+  padding: 13px 18px;
+  background: var(--brown);
+  color: #eadfce;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
 }
 
 /* =========================
-   SCROLLABLE MIDDLE CONTENT
+   CONTENT / SCROLLBAR
 ========================= */
 
 .app-content {
-  overflow-y: auto;        /* 🔑 ONLY THIS SCROLLS */
-  background-color: #f8f9fa;
+  overflow-y: auto;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(184,92,56,0.045), transparent 22rem),
+    radial-gradient(circle at 90% 45%, rgba(105,116,81,0.045), transparent 24rem),
+    var(--cream);
 }
 
-/* Optional smooth scrollbar */
 .app-content::-webkit-scrollbar {
-  width: 8px;
+  width: 9px;
+}
+
+.app-content::-webkit-scrollbar-track {
+  background: #eee5d7;
 }
 
 .app-content::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
+  background: #bcae9a;
+  border-radius: 10px;
+  border: 2px solid #eee5d7;
+}
+
+.app-content::-webkit-scrollbar-thumb:hover {
+  background: var(--terracotta);
 }
 
 /* =========================
-   HERO SECTION
+   HERO
 ========================= */
 
 .hero {
-  background: #ffffff;
-  padding: 60px 20px 40px;
-  border-bottom: 1px solid #ddd;
+  position: relative;
+  overflow: hidden;
+  padding: clamp(54px, 8vw, 92px) 22px clamp(44px, 6vw, 70px);
   text-align: center;
+  background:
+    linear-gradient(rgba(255,253,248,0.92), rgba(255,253,248,0.96)),
+    var(--cream-light);
+  border-bottom: 1px solid var(--line);
+}
+
+.hero::before {
+  content: "✦";
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--gold);
+  font-size: 1.1rem;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  right: -110px;
+  bottom: -150px;
+  border: 1px solid rgba(184,92,56,0.14);
+  border-radius: 50%;
+  box-shadow: -35px -20px 0 rgba(105,116,81,0.04);
 }
 
 .hero h1 {
-  font-size: 2.3rem;
-  margin-bottom: 10px;
+  max-width: 900px;
+  margin: 0 auto 8px;
+  color: var(--brown);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.7rem, 6vw, 4.8rem);
+  line-height: 0.98;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
 .hero p {
-  color: #555;
+  margin: 16px 0 0;
+  color: var(--olive-dark);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 /* =========================
-   RECIPES GRID WRAPPER
+   RECIPES AREA
 ========================= */
 
 .recipes-wrapper {
-  padding: 40px 20px 60px;
+  padding: clamp(34px, 5vw, 62px) 20px 76px;
   display: flex;
   justify-content: center;
 }
 
 .recipes-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 320px));
   gap: 30px;
-  max-width: 1100px;
+  max-width: 1080px;
   width: 100%;
   justify-content: center;
-  flex-wrap: wrap;
 }
 
 /* =========================
-   RECIPE CARDS (UNCHANGED)
+   RECIPE CARD
 ========================= */
 
 .recipe-card {
-  width: 320px;
-  height: 420px;
-  border-radius: 12px;
-  background: #ffffff;
+  width: 100%;
+  min-height: 438px;
+  border: 1px solid rgba(105, 116, 81, 0.14);
+  border-radius: 18px;
+  background: var(--card);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
 }
 
 .recipe-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.18);
+  transform: translateY(-7px);
+  border-color: rgba(184, 92, 56, 0.28);
+  box-shadow: var(--shadow-hover);
 }
 
 .recipe-card img {
+  display: block;
   width: 100%;
-  height: 220px;
+  height: 218px;
   object-fit: cover;
   flex-shrink: 0;
+  transition: transform 0.5s ease;
+}
+
+.recipe-card:hover img {
+  transform: scale(1.035);
 }
 
 .recipe-card .card-body {
   flex: 1;
-  padding: 1.25rem;
+  padding: 20px 20px 18px;
   display: flex;
   flex-direction: column;
 }
 
 .recipe-card h5 {
-  margin-bottom: 6px;
-  font-weight: 600;
+  margin: 0 0 7px;
+  color: var(--brown);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.65rem;
+  line-height: 1.05;
+  font-weight: 700;
 }
 
 .recipe-desc {
-  font-size: 0.95rem;
-  color: #555;
-  overflow: hidden;
+  margin: 0;
+  color: var(--brown-soft);
+  font-size: 0.91rem;
+  line-height: 1.65;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* =========================
-   VIEW RECIPE BUTTON
+   RECIPE BUTTON
 ========================= */
 
+.recipe-card .btn,
+.recipe-card a.btn,
 .recipe-card a[href*="recipe"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
   margin-top: auto;
-  display: block;
-  padding: 10px 16px;
-  background-color: #0d6efd;
-  color: #ffffff !important;
+  padding: 11px 17px;
+  background: transparent;
+  color: var(--terracotta-dark) !important;
+  border: 1px solid rgba(184, 92, 56, 0.42);
+  border-radius: 999px;
   text-decoration: none;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-align: center;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    border-color 0.25s ease;
 }
 
+.recipe-card a[href*="recipe"]::after {
+  content: "→";
+  font-size: 1rem;
+  transition: transform 0.25s ease;
+}
+
+.recipe-card .btn:hover,
+.recipe-card a.btn:hover,
 .recipe-card a[href*="recipe"]:hover {
-  background-color: #0b5ed7;
+  background: var(--terracotta);
+  color: #fffaf4 !important;
+  border-color: var(--terracotta);
   transform: translateY(-1px);
+}
+
+.recipe-card a[href*="recipe"]:hover::after {
+  transform: translateX(3px);
+}
+
+/* =========================
+   RECIPE DETAIL PAGE
+========================= */
+
+.recipe-page .back-link {
+  display: inline-flex;
+  align-items: center;
+  margin: 25px clamp(18px, 4vw, 54px) 8px;
+  color: var(--olive-dark);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(105,116,81,0.3);
+  padding-bottom: 3px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.recipe-page .back-link:hover {
+  color: var(--terracotta-dark);
+  border-color: var(--terracotta);
+}
+
+.recipe-page .recipe-title {
+  position: relative;
+  max-width: 1100px;
+  margin: 8px auto 38px;
+  padding: 0 20px;
+  text-align: center;
+  color: var(--brown);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.7rem, 5vw, 4rem);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.recipe-page .recipe-title::after {
+  content: "";
+  display: block;
+  width: 58px;
+  height: 3px;
+  margin: 17px auto 0;
+  background: var(--terracotta);
+  border-radius: 4px;
+}
+
+/* Recipe boxes become premium cookbook panels */
+.recipe-page .recipe-box {
+  position: relative;
+  background: rgba(255,253,248,0.96);
+  padding: 25px 26px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.recipe-page .recipe-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 22px;
+  width: 42px;
+  height: 3px;
+  background: var(--olive);
+  border-radius: 0 0 5px 5px;
+}
+
+.recipe-page .recipe-box h3 {
+  margin: 0 0 18px;
+  color: var(--brown);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+}
+
+.recipe-page .recipe-box ul,
+.recipe-page .recipe-box ol {
+  margin-bottom: 0;
+  padding-left: 24px;
+}
+
+.recipe-page .recipe-box li {
+  color: #5f5045;
+  font-size: 0.93rem;
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+
+.recipe-page .recipe-box li::marker {
+  color: var(--terracotta);
+  font-weight: 700;
+}
+
+.recipe-page .recipe-image {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.recipe-page .recipe-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: contain;
+  border-radius: 18px;
+  box-shadow: var(--shadow-hover);
+}
+
+/* =========================
+   VIDEO
+========================= */
+
+.recipe-page .recipe-video {
+  max-width: 1200px;
+  margin: 56px auto 70px;
+  padding: 0 24px;
+}
+
+.recipe-page .recipe-video::before {
+  content: "WATCH THE RECIPE";
+  display: block;
+  margin-bottom: 14px;
+  color: var(--olive-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-align: center;
+}
+
+.recipe-page .recipe-video iframe {
+  display: block;
+  width: 100%;
+  height: 480px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  background: #241f1b;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media (max-width: 768px) {
+@media (max-width: 1050px) {
+  .recipes-grid {
+    grid-template-columns: repeat(2, minmax(260px, 340px));
+  }
+}
+
+@media (max-width: 992px) {
+  .recipe-page .recipe-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-page .recipe-image {
+    order: -1;
+  }
+
+  .recipe-page .recipe-image img {
+    max-height: 360px;
+  }
+
+  .recipe-page .recipe-video iframe {
+    height: 360px;
+  }
+}
+
+@media (max-width: 700px) {
+  .app-header {
+    min-height: 58px;
+    padding: 13px 16px;
+    font-size: 0.92rem;
+  }
+
+  .hero {
+    padding: 55px 18px 48px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 12vw, 3.5rem);
+  }
+
+  .hero p {
+    font-size: 0.75rem;
+    letter-spacing: 0.13em;
+  }
+
+  .recipes-wrapper {
+    padding: 28px 16px 55px;
+  }
+
+  .recipes-grid {
+    grid-template-columns: minmax(0, 360px);
+    gap: 22px;
+  }
+
   .recipe-card {
-    width: 100%;
-    max-width: 340px;
+    min-height: 425px;
+  }
+
+  .recipe-card img {
+    height: 215px;
+  }
+
+  .recipe-page .back-link {
+    margin: 20px 18px 8px;
+  }
+
+  .recipe-page .recipe-title {
+    margin-bottom: 28px;
+    font-size: 2.75rem;
+  }
+
+  .recipe-page .recipe-grid {
+    gap: 18px;
+    padding: 0 16px;
+  }
+
+  .recipe-page .recipe-box {
+    padding: 22px 20px;
+    border-radius: 15px;
+  }
+
+  .recipe-page .recipe-box h3 {
+    font-size: 1.7rem;
+  }
+
+  .recipe-page .recipe-box li {
+    font-size: 0.9rem;
+  }
+
+  .recipe-page .recipe-video {
+    margin: 40px auto 55px;
+    padding: 0 16px;
+  }
+
+  .recipe-page .recipe-video iframe {
+    height: 250px;
+    border-radius: 15px;
+  }
+}
+
+@media (max-width: 420px) {
+  .recipe-card .card-body {
+    padding: 18px;
+  }
+
+  .recipe-card h5 {
+    font-size: 1.55rem;
+  }
+
+  .recipe-page .recipe-title {
+    font-size: 2.45rem;
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

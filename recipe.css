@@ -1,55 +1,114 @@
-/* =========================================================
-   KUNAL & RUCHI RECIPES — RECIPE PAGE V8
-   PREMIUM INDIAN HOME COOKBOOK
 
-   This file controls presentation only.
-   Recipe title, ingredients, method, image and video URL
-   from the supplied HTML are preserved.
+/* =========================================================
+   V9 VIEWPORT SHELL
+   Header + footer stay visible. Only .app-content scrolls.
 ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
-
-*,
-*::before,
-*::after { box-sizing: border-box; }
-
-.recipe-page {
-  --cream:#f6efe3;
-  --paper:#fffdf9;
-  --ink:#382a22;
-  --muted:#66574d;
-  --olive:#66734e;
-  --olive-dark:#4f5c3d;
-  --terracotta:#b75a38;
-  --gold:#c49b55;
-  --line:#dfd0bb;
-  --shadow:0 9px 26px rgba(58,42,29,.065);
-  min-height:100vh;
-  overflow-x:hidden;
-  color:var(--ink);
-  background:
-    radial-gradient(circle at 8% 18%,rgba(196,155,85,.065),transparent 18rem),
-    radial-gradient(circle at 92% 48%,rgba(102,115,78,.055),transparent 20rem),
-    var(--cream);
+.recipe-page.app-layout {
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  display: grid !important;
+  grid-template-rows: 64px minmax(0, 1fr) 58px !important;
+  overflow: hidden !important;
 }
 
-.recipe-page.app-layout {
-  min-height:100vh;
-  height:100vh;
-  grid-template-rows:auto 1fr auto;
-  overflow:hidden;
+.recipe-page .app-header {
+  position: relative !important;
+  top: auto !important;
+  z-index: 1000 !important;
+  min-height: 64px !important;
 }
 
 .recipe-page .app-content {
-  min-height:0;
-  overflow-y:auto;
-  overflow-x:hidden;
+  min-height: 0 !important;
+  height: auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .recipe-page .app-footer {
-  position:sticky;
-  bottom:0;
-  z-index:100;
+  position: relative !important;
+  bottom: auto !important;
+  z-index: 1000 !important;
+  min-height: 58px !important;
+  height: 58px !important;
+  padding: 8px 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  background: #3b2c24 !important;
+  color: #eadfce !important;
+  text-align: center !important;
+  font-family: "DM Sans", system-ui, sans-serif !important;
+  font-size: .72rem !important;
+  line-height: 1.25 !important;
+  letter-spacing: .025em !important;
+  border-top: 1px solid rgba(255,255,255,.08) !important;
+}
+
+.recipe-page .app-footer > div {
+  display: inline-flex !important;
+  align-items: center;
+}
+
+.recipe-page .app-footer > div + div::before {
+  content: "·";
+  margin: 0 9px;
+  color: #c49b55;
+}
+
+.recipe-page .footer-brand {
+  color: #fffaf1;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.recipe-page .footer-tagline,
+.recipe-page .footer-note {
+  color: rgba(234,223,206,.82);
+}
+
+.recipe-page .footer-copyright {
+  color: rgba(234,223,206,.68);
+}
+
+/* Keep the recipe hero from becoming unnecessarily tall in the viewport. */
+.recipe-page .recipe-image {
+  height: 300px;
+  min-height: 300px;
+}
+
+/* =========================================================
+   V9 MOBILE SHELL
+========================================================= */
+
+@media (max-width: 700px) {
+  .recipe-page.app-layout {
+    grid-template-rows: 55px minmax(0, 1fr) 52px !important;
+  }
+
+  .recipe-page .app-header {
+    min-height: 55px !important;
+  }
+
+  .recipe-page .app-footer {
+    min-height: 52px !important;
+    height: 52px !important;
+    padding: 7px 9px !important;
+    font-size: .64rem !important;
+  }
+
+  .recipe-page .app-footer > div + div::before {
+    margin: 0 6px;
+  }
+
+  .recipe-page .recipe-image {
+    height: auto;
+    min-height: 0;
+  }
 }
 
 /* =========================================================

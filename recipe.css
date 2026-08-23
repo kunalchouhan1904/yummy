@@ -1,116 +1,95 @@
-/* =========================
-   SAFETY RESET
-========================= */
+/* =========================================================
+   KUNAL & RUCHI RECIPES — RECIPE PAGE
+   Replace the existing recipe.css with this file.
+   Ingredients and method text remain untouched.
+========================================================= */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* Prevent horizontal scroll globally (recipe page only) */
 .recipe-page {
   overflow-x: hidden;
 }
 
-/* =========================
-   TOP CONTROLS
-========================= */
-.recipe-page .back-link {
-  display: inline-block;
-  margin: 20px;
-  font-size: 0.95rem;
-}
-
-.recipe-page .recipe-title {
-  text-align: center;
-  font-size: 2.2rem;
-  margin-bottom: 30px;
-}
-
-/* =========================
-   MAIN GRID (DESKTOP)
-========================= */
+/* Keep recipe detail layout safely within the viewport */
 .recipe-page .recipe-grid {
   display: grid;
-
-  /* 🔒 SAFE FRACTIONS — no % math overflow */
   grid-template-columns: 3fr 3fr 4fr;
-
   gap: 24px;
-
-  /* 🔒 MAX WIDTH CONSTRAINT */
   max-width: 1200px;
   margin: 0 auto;
-
   padding: 0 24px;
   align-items: start;
 }
 
-/* =========================
-   CONTENT BOXES
-========================= */
-.recipe-page .recipe-box {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-}
-
-/* =========================
-   IMAGE (CHEF)
-========================= */
+/* Image column */
 .recipe-page .recipe-image {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* 🔑 prevents vertical clipping */
+  align-items: flex-start;
+  min-width: 0;
 }
 
 .recipe-page .recipe-image img {
   width: 100%;
-  height: auto;            /* 🔑 never force height */
-  max-height: 420px;       /* desktop-safe cap */
-  object-fit: contain;     /* 🔑 prevents crop */
-  border-radius: 12px;
+  height: auto;
+  max-height: 480px;
+  object-fit: contain;
   display: block;
 }
 
-/* =========================
-   VIDEO (FULL WIDTH)
-========================= */
+/* Premium spacing for the method/ingredients panels */
+.recipe-page .recipe-box {
+  min-width: 0;
+}
+
+.recipe-page .recipe-box ul,
+.recipe-page .recipe-box ol {
+  overflow-wrap: anywhere;
+}
+
+/* Video remains full-width and responsive */
 .recipe-page .recipe-video {
   max-width: 1200px;
-  margin: 50px auto;
+  margin: 56px auto 70px;
   padding: 0 24px;
 }
 
 .recipe-page .recipe-video iframe {
   width: 100%;
   height: 480px;
-  border-radius: 12px;
   border: none;
 }
 
-/* =========================
-   MOBILE & TABLET
-========================= */
+/* Tablet / mobile */
 @media (max-width: 992px) {
-
-  /* Stack layout */
   .recipe-page .recipe-grid {
     grid-template-columns: 1fr;
     padding: 0 16px;
   }
 
-  /* Image smaller but intact */
+  .recipe-page .recipe-image {
+    order: -1;
+  }
+
   .recipe-page .recipe-image img {
-    max-height: 300px;
+    max-height: 360px;
   }
 
-  /* Video scaling */
+  .recipe-page .recipe-video {
+    padding: 0 16px;
+  }
+
   .recipe-page .recipe-video iframe {
-    height: 280px;
+    height: 300px;
   }
+}
 
-  .recipe-page .recipe-title {
-    font-size: 1.8rem;
+@media (max-width: 600px) {
+  .recipe-page .recipe-video iframe {
+    height: 240px;
   }
 }

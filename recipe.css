@@ -35,18 +35,21 @@
 
 .recipe-page.app-layout {
   min-height:100vh;
-  height:auto;
-  grid-template-rows:auto auto auto;
+  height:100vh;
+  grid-template-rows:auto 1fr auto;
+  overflow:hidden;
 }
 
 .recipe-page .app-content {
   min-height:0;
-  overflow:visible;
+  overflow-y:auto;
+  overflow-x:hidden;
 }
 
 .recipe-page .app-footer {
-  position:relative;
-  bottom:auto;
+  position:sticky;
+  bottom:0;
+  z-index:100;
 }
 
 /* =========================================================
@@ -54,7 +57,9 @@
 ========================================================= */
 
 .recipe-page .app-header {
-  position:relative;
+  position:sticky;
+  top:0;
+  z-index:100;
   min-height:64px;
   padding:0 clamp(18px,4vw,58px);
   display:flex;
@@ -370,6 +375,16 @@
 ========================================================= */
 
 @media (max-width:700px) {
+  .recipe-page .app-footer {
+    min-height:52px;
+    padding:8px 12px;
+    font-size:.68rem;
+  }
+
+  .recipe-page .app-footer > div + div::before {
+    margin:0 7px;
+  }
+
   .recipe-page .app-header {
     min-height:55px;
     padding:0 14px;

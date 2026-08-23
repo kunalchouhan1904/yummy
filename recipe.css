@@ -1,385 +1,563 @@
 /* =========================================================
-   KUNAL & RUCHI RECIPES — RECIPE PAGE V6
-   INDIAN HOME KITCHEN / ABOVE-THE-FOLD COOKBOOK
-   Desktop + Tablet + Mobile
+   KUNAL & RUCHI RECIPES — RECIPE PAGE V7
+   "BILLIONAIRE TEST" — PREMIUM INDIAN HOME COOKBOOK
 
-   CONTENT IS UNCHANGED.
-   CSS controls presentation only.
+   Design goals:
+   • Food-first, not app-first
+   • Premium editorial feel without losing warmth
+   • Recipe visible immediately
+   • Strong desktop composition
+   • Excellent mobile cooking experience
+   • Existing recipe title, ingredients, method and video remain
+     unchanged — this file controls presentation only.
 ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
 *,
 *::before,
-*::after { box-sizing: border-box; }
+*::after {
+  box-sizing: border-box;
+}
 
 .recipe-page {
-  --cream:#f7f0e4;
-  --paper:#fffdf9;
-  --brown:#3b2c24;
-  --text:#5f5147;
-  --olive:#66734e;
-  --olive-dark:#4f5d3c;
-  --terracotta:#b75b39;
-  --gold:#c39a52;
-  --line:#e2d5c2;
-  --shadow:0 12px 30px rgba(59,42,29,.075);
-  min-height:100vh;
-  overflow-x:hidden;
+  --cream: #f6efe3;
+  --cream-deep: #eee2cf;
+  --paper: #fffdf8;
+  --paper-soft: #fbf7ef;
+  --ink: #382a22;
+  --muted: #66574d;
+  --olive: #66734e;
+  --olive-dark: #4f5c3d;
+  --terracotta: #b75a38;
+  --terracotta-dark: #96472e;
+  --gold: #c49b55;
+  --line: #dfd0bb;
+  --line-dark: #cdbda6;
+  --shadow-soft: 0 10px 30px rgba(58, 42, 29, .07);
+  --shadow-image: 0 18px 38px rgba(58, 42, 29, .13);
+
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% 18%, rgba(196,155,85,.07), transparent 19rem),
+    radial-gradient(circle at 92% 48%, rgba(102,115,78,.06), transparent 21rem),
+    var(--cream);
 }
 
-/* PAGE FLOW */
+/* ---------------------------------------------------------
+   PAGE FLOW
+--------------------------------------------------------- */
+
 .recipe-page.app-layout {
-  height:auto;
-  min-height:100vh;
-  grid-template-rows:auto auto auto;
+  min-height: 100vh;
+  height: auto;
+  grid-template-rows: auto auto auto;
 }
-.recipe-page .app-content { overflow:visible; min-height:0; }
-.recipe-page .app-footer { position:relative; bottom:auto; }
 
-/* HEADER */
+.recipe-page .app-content {
+  min-height: 0;
+  overflow: visible;
+}
+
+.recipe-page .app-footer {
+  position: relative;
+  bottom: auto;
+}
+
+/* ---------------------------------------------------------
+   BRAND HEADER
+--------------------------------------------------------- */
+
 .recipe-page .app-header {
-  min-height:64px;
-  padding:14px clamp(18px,4vw,58px);
-  background:#3c2d25;
-  color:#fffaf3;
-  border-bottom:3px solid var(--terracotta);
-  box-shadow:0 4px 15px rgba(45,30,21,.12);
+  position: relative;
+  min-height: 64px;
+  padding: 14px clamp(18px, 4.2vw, 62px);
+  display: flex;
+  align-items: center;
+  background: #3b2c24;
+  color: #fffaf2;
+  border-bottom: 3px solid var(--terracotta);
+  box-shadow: 0 5px 18px rgba(44, 29, 20, .13);
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .01em;
 }
 
-/* BACK */
+.recipe-page .app-header::after {
+  content: "INDIAN HOME KITCHEN";
+  position: absolute;
+  right: clamp(18px, 4.2vw, 62px);
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,250,242,.68);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+}
+
+/* ---------------------------------------------------------
+   BACK LINK
+--------------------------------------------------------- */
+
 .recipe-page .back-link {
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  margin:22px 0 0 clamp(18px,4vw,58px);
-  padding:8px 14px;
-  border:1px solid var(--line);
-  border-radius:999px;
-  background:rgba(255,253,249,.94);
-  color:var(--olive-dark);
-  font-family:"DM Sans",system-ui,sans-serif;
-  font-size:.82rem;
-  font-weight:700;
-  text-decoration:none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 21px 0 0 clamp(18px, 4.2vw, 62px);
+  padding: 8px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,253,248,.86);
+  color: var(--olive-dark);
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: .79rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 3px 10px rgba(58,42,29,.025);
+  transition: transform .18s ease, border-color .18s ease, color .18s ease;
 }
 
-/* TITLE */
+.recipe-page .back-link:hover {
+  color: var(--terracotta-dark);
+  border-color: #c99b84;
+  transform: translateX(-2px);
+}
+
+/* ---------------------------------------------------------
+   RECIPE TITLE
+--------------------------------------------------------- */
+
 .recipe-page .recipe-title {
-  width:min(1200px,calc(100% - 32px));
-  margin:22px auto 27px;
-  text-align:center;
-  color:var(--brown);
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-size:clamp(3.1rem,5vw,5rem);
-  line-height:.88;
-  font-weight:700;
-  letter-spacing:-.035em;
+  width: min(1180px, calc(100% - 30px));
+  margin: 19px auto 25px;
+  text-align: center;
+  color: var(--ink);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(3.25rem, 5.1vw, 5.15rem);
+  line-height: .86;
+  font-weight: 700;
+  letter-spacing: -.04em;
 }
+
 .recipe-page .recipe-title::before {
-  content:"FROM OUR HOME KITCHEN";
-  display:block;
-  margin-bottom:10px;
-  color:var(--olive-dark);
-  font-family:"DM Sans",system-ui,sans-serif;
-  font-size:.66rem;
-  font-weight:800;
-  letter-spacing:.22em;
+  content: "FROM OUR HOME KITCHEN";
+  display: block;
+  margin-bottom: 10px;
+  color: var(--olive-dark);
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: .65rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: .22em;
 }
+
 .recipe-page .recipe-title::after {
-  content:"";
-  display:block;
-  width:52px;
-  height:3px;
-  margin:14px auto 0;
-  background:var(--terracotta);
-  border-radius:8px;
+  content: "";
+  display: block;
+  width: 52px;
+  height: 3px;
+  margin: 14px auto 0;
+  background: var(--terracotta);
+  border-radius: 999px;
 }
 
-/* =========================================================
-   ABOVE-THE-FOLD COMPOSITION
+/* ---------------------------------------------------------
+   ABOVE THE FOLD
 
-   Instead of:
-      title
-      giant image
-      scroll
-      details
-
-   We show:
-      title
-      IMAGE + INGREDIENTS
-      immediately
-      METHOD
-========================================================= */
+   Image + ingredients appear together.
+   Method begins immediately after them.
+--------------------------------------------------------- */
 
 .recipe-page .recipe-grid {
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(300px,.82fr);
+  width: min(1280px, calc(100% - 48px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(350px, .92fr);
   grid-template-areas:
     "image ingredients"
     "method method";
-  gap:22px;
-  width:min(1260px,calc(100% - 48px));
-  margin:0 auto;
-  align-items:start;
+  gap: 20px 24px;
+  align-items: stretch;
 }
 
-.recipe-page .recipe-grid > .recipe-image { grid-area:image; }
-.recipe-page .recipe-grid > .recipe-box:first-child { grid-area:ingredients; }
-.recipe-page .recipe-grid > .recipe-box:last-child { grid-area:method; }
+.recipe-page .recipe-grid > .recipe-image {
+  grid-area: image;
+}
 
-/* HERO — deliberately landscape so the page does not become
-   an enormous vertical image wall. */
+.recipe-page .recipe-grid > .recipe-box:first-child {
+  grid-area: ingredients;
+}
+
+.recipe-page .recipe-grid > .recipe-box:last-child {
+  grid-area: method;
+}
+
+/* ---------------------------------------------------------
+   HERO IMAGE PANEL
+--------------------------------------------------------- */
+
 .recipe-page .recipe-image {
-  position:relative;
-  height:350px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:12px 24px;
-  overflow:hidden;
+  position: relative;
+  min-height: 365px;
+  height: 365px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  overflow: hidden;
   background:
-    radial-gradient(circle at 18% 45%,rgba(195,154,82,.10),transparent 15rem),
-    radial-gradient(circle at 82% 55%,rgba(102,115,78,.08),transparent 16rem),
-    linear-gradient(135deg,#fffdf9,#f4eadb);
-  border:1px solid var(--line);
-  border-radius:22px;
-  box-shadow:var(--shadow);
+    radial-gradient(circle at 15% 50%, rgba(196,155,85,.12), transparent 16rem),
+    radial-gradient(circle at 86% 52%, rgba(102,115,78,.09), transparent 18rem),
+    linear-gradient(135deg, #fffdf9 0%, #f5ecdf 100%);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--shadow-soft);
 }
+
 .recipe-page .recipe-image::before,
 .recipe-page .recipe-image::after {
-  position:absolute;
-  color:var(--gold);
-  font-family:Georgia,serif;
-  font-size:1rem;
-}
-.recipe-page .recipe-image::before { content:"✦"; top:15px; left:20px; }
-.recipe-page .recipe-image::after { content:"✦"; right:20px; bottom:15px; }
-.recipe-page .recipe-image img {
-  display:block;
-  width:auto;
-  max-width:min(100%,500px);
-  max-height:330px;
-  height:auto;
-  object-fit:contain;
-  border-radius:12px;
-  filter:drop-shadow(0 12px 18px rgba(55,38,24,.16));
+  position: absolute;
+  color: var(--gold);
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  line-height: 1;
 }
 
-/* CONTENT PANELS */
+.recipe-page .recipe-image::before {
+  content: "✦";
+  top: 17px;
+  left: 20px;
+}
+
+.recipe-page .recipe-image::after {
+  content: "✦";
+  right: 20px;
+  bottom: 17px;
+}
+
+.recipe-page .recipe-image img {
+  display: block;
+  width: auto;
+  max-width: min(100%, 520px);
+  max-height: 345px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  filter: drop-shadow(0 16px 20px rgba(52,37,25,.17));
+}
+
+/* ---------------------------------------------------------
+   RECIPE CARDS
+--------------------------------------------------------- */
+
 .recipe-page .recipe-box {
-  position:relative;
-  min-width:0;
-  background:rgba(255,253,249,.98);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:25px 28px 27px;
-  box-shadow:0 9px 25px rgba(59,42,29,.055);
+  position: relative;
+  min-width: 0;
+  background: rgba(255,253,248,.98);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 25px 28px 27px;
+  box-shadow: var(--shadow-soft);
 }
+
 .recipe-page .recipe-box::before {
-  content:"";
-  position:absolute;
-  top:0;
-  left:27px;
-  width:46px;
-  height:4px;
-  border-radius:0 0 6px 6px;
-  background:var(--olive);
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 27px;
+  width: 46px;
+  height: 4px;
+  background: var(--olive);
+  border-radius: 0 0 6px 6px;
 }
+
 .recipe-page .recipe-box h3 {
-  margin:0 0 17px;
-  color:var(--brown);
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-size:2.15rem;
-  line-height:1;
-  font-weight:700;
+  margin: 0 0 18px;
+  color: var(--ink);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2.25rem;
+  line-height: .95;
+  font-weight: 700;
+  letter-spacing: -.015em;
 }
+
 .recipe-page .recipe-box ul,
 .recipe-page .recipe-box ol {
-  margin:0;
-  padding-left:25px;
-}
-.recipe-page .recipe-box li {
-  margin:0 0 10px;
-  color:var(--text);
-  font-family:"DM Sans",system-ui,sans-serif;
-  font-size:.94rem;
-  line-height:1.58;
-}
-.recipe-page .recipe-box li:last-child { margin-bottom:0; }
-.recipe-page .recipe-box li::marker {
-  color:var(--terracotta);
-  font-weight:800;
+  margin: 0;
+  padding-left: 25px;
 }
 
-/* Ingredients card is intentionally compact enough to sit beside hero */
+.recipe-page .recipe-box li {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: .94rem;
+  line-height: 1.58;
+}
+
+.recipe-page .recipe-box li:last-child {
+  margin-bottom: 0;
+}
+
+.recipe-page .recipe-box li::marker {
+  color: var(--terracotta);
+  font-weight: 800;
+}
+
+/* Ingredients: compact, editorial and completely visible beside hero */
 .recipe-page .recipe-box:first-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background:
-    linear-gradient(rgba(255,253,249,.98),rgba(255,253,249,.98)),
+    linear-gradient(rgba(255,253,248,.98), rgba(255,253,248,.98)),
     repeating-linear-gradient(
       to bottom,
       transparent 0,
-      transparent 33px,
-      rgba(102,115,78,.035) 34px
+      transparent 34px,
+      rgba(102,115,78,.035) 35px
     );
 }
 
-/* Method is a wide reading section below the fold */
+.recipe-page .recipe-box:first-child ul {
+  columns: 1;
+}
+
+/* Method: wide, comfortable reading */
 .recipe-page .recipe-box:last-child {
-  padding:27px 34px 30px;
+  padding: 28px 34px 31px;
 }
 
-/* VIDEO */
+.recipe-page .recipe-box:last-child ol {
+  columns: 2;
+  column-gap: 48px;
+}
+
+.recipe-page .recipe-box:last-child li {
+  break-inside: avoid;
+}
+
+/* ---------------------------------------------------------
+   VIDEO
+--------------------------------------------------------- */
+
 .recipe-page .recipe-video {
-  width:min(900px,calc(100% - 48px));
-  margin:46px auto 68px;
+  width: min(900px, calc(100% - 48px));
+  margin: 44px auto 68px;
 }
+
 .recipe-page .recipe-video::before {
-  content:"WATCH THE RECIPE";
-  display:block;
-  margin-bottom:8px;
-  color:var(--olive-dark);
-  font-family:"DM Sans",system-ui,sans-serif;
-  font-size:.68rem;
-  font-weight:800;
-  letter-spacing:.2em;
-  text-align:center;
+  content: "WATCH THE RECIPE";
+  display: block;
+  margin: 0 0 8px;
+  color: var(--olive-dark);
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: .67rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: .21em;
+  text-align: center;
 }
+
 .recipe-page .recipe-video::after {
-  content:"";
-  display:block;
-  width:40px;
-  height:2px;
-  margin:0 auto 16px;
-  background:var(--terracotta);
+  content: "";
+  display: block;
+  width: 40px;
+  height: 2px;
+  margin: 0 auto 16px;
+  background: var(--terracotta);
 }
+
 .recipe-page .recipe-video iframe {
-  display:block;
-  width:100%;
-  height:auto;
-  aspect-ratio:16/9;
-  border:1px solid var(--line);
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  background:#292119;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+  background: #292119;
 }
 
-/* TABLET */
-@media (max-width:900px) {
+/* ---------------------------------------------------------
+   TABLET
+--------------------------------------------------------- */
+
+@media (max-width: 980px) {
   .recipe-page .recipe-grid {
-    grid-template-columns:minmax(0,1fr) minmax(245px,.8fr);
-    width:calc(100% - 32px);
-    gap:16px;
+    width: calc(100% - 32px);
+    grid-template-columns: minmax(0, 1fr) minmax(280px, .85fr);
+    gap: 16px;
   }
-  .recipe-page .recipe-image { height:310px; }
-  .recipe-page .recipe-image img { max-height:290px; }
-  .recipe-page .recipe-box { padding:22px 21px 24px; }
-  .recipe-page .recipe-box h3 { font-size:2rem; }
-  .recipe-page .recipe-box li { font-size:.89rem; }
+
+  .recipe-page .recipe-image,
+  .recipe-page .recipe-image {
+    height: 330px;
+    min-height: 330px;
+  }
+
+  .recipe-page .recipe-image img {
+    max-height: 310px;
+  }
+
+  .recipe-page .recipe-box {
+    padding: 22px 21px 24px;
+  }
+
+  .recipe-page .recipe-box h3 {
+    font-size: 2.05rem;
+  }
+
+  .recipe-page .recipe-box li {
+    font-size: .88rem;
+  }
+
+  .recipe-page .recipe-box:last-child ol {
+    column-gap: 32px;
+  }
 }
 
-/* =========================================================
+/* ---------------------------------------------------------
    MOBILE
-   Immediately shows the recipe, not a giant hero wall.
-========================================================= */
-@media (max-width:680px) {
+--------------------------------------------------------- */
+
+@media (max-width: 700px) {
   .recipe-page .app-header {
-    min-height:55px;
-    padding:12px 15px;
-    font-size:.88rem;
+    min-height: 56px;
+    padding: 12px 15px;
+    font-size: .88rem;
+  }
+
+  .recipe-page .app-header::after {
+    display: none;
   }
 
   .recipe-page .back-link {
-    margin:15px 11px 0;
-    padding:7px 11px;
-    font-size:.76rem;
+    margin: 14px 11px 0;
+    padding: 7px 11px;
+    font-size: .75rem;
   }
 
   .recipe-page .recipe-title {
-    width:calc(100% - 20px);
-    margin:20px auto 21px;
-    font-size:clamp(2.8rem,14vw,3.65rem);
+    width: calc(100% - 18px);
+    margin: 18px auto 20px;
+    font-size: clamp(2.8rem, 14vw, 3.65rem);
   }
 
   .recipe-page .recipe-title::before {
-    margin-bottom:9px;
-    font-size:.58rem;
-    letter-spacing:.14em;
+    margin-bottom: 9px;
+    font-size: .57rem;
+    letter-spacing: .14em;
   }
 
   .recipe-page .recipe-title::after {
-    width:44px;
-    height:2px;
-    margin-top:12px;
+    width: 44px;
+    height: 2px;
+    margin-top: 12px;
   }
 
   .recipe-page .recipe-grid {
-    grid-template-columns:1fr;
+    width: calc(100% - 16px);
+    grid-template-columns: 1fr;
     grid-template-areas:
       "image"
       "ingredients"
       "method";
-    gap:13px;
-    width:calc(100% - 18px);
+    gap: 13px;
   }
 
   .recipe-page .recipe-image {
-    height:auto;
-    min-height:0;
-    padding:10px;
-    border-radius:16px;
+    height: auto;
+    min-height: 0;
+    padding: 9px;
+    border-radius: 16px;
   }
 
   .recipe-page .recipe-image img {
-    max-width:100%;
-    max-height:270px;
-    border-radius:9px;
+    width: auto;
+    max-width: 100%;
+    max-height: 285px;
+    border-radius: 9px;
   }
 
   .recipe-page .recipe-box {
-    padding:21px 16px 22px;
-    border-radius:15px;
+    padding: 21px 16px 22px;
+    border-radius: 15px;
   }
 
   .recipe-page .recipe-box::before {
-    left:17px;
-    width:39px;
-    height:3px;
+    left: 17px;
+    width: 39px;
+    height: 3px;
   }
 
   .recipe-page .recipe-box h3 {
-    margin-bottom:15px;
-    font-size:1.85rem;
+    margin-bottom: 15px;
+    font-size: 1.9rem;
+  }
+
+  .recipe-page .recipe-box:first-child ul,
+  .recipe-page .recipe-box:last-child ol {
+    columns: 1;
   }
 
   .recipe-page .recipe-box ul,
   .recipe-page .recipe-box ol {
-    padding-left:21px;
+    padding-left: 21px;
   }
 
   .recipe-page .recipe-box li {
-    margin-bottom:9px;
-    font-size:.87rem;
-    line-height:1.58;
+    margin-bottom: 9px;
+    font-size: .87rem;
+    line-height: 1.58;
   }
 
   .recipe-page .recipe-video {
-    width:calc(100% - 18px);
-    margin:35px auto 46px;
+    width: calc(100% - 16px);
+    margin: 34px auto 46px;
   }
 
   .recipe-page .recipe-video iframe {
-    aspect-ratio:16/9;
-    border-radius:14px;
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
   }
 }
 
-@media (max-width:390px) {
-  .recipe-page .recipe-title { font-size:2.68rem; }
-  .recipe-page .recipe-grid { width:calc(100% - 14px); }
-  .recipe-page .recipe-box { padding:19px 14px 20px; }
-  .recipe-page .recipe-box li { font-size:.83rem; }
-  .recipe-page .recipe-video { width:calc(100% - 14px); }
+/* ---------------------------------------------------------
+   SMALL PHONES
+--------------------------------------------------------- */
+
+@media (max-width: 390px) {
+  .recipe-page .recipe-title {
+    font-size: 2.68rem;
+  }
+
+  .recipe-page .recipe-grid {
+    width: calc(100% - 12px);
+  }
+
+  .recipe-page .recipe-box {
+    padding: 19px 14px 20px;
+  }
+
+  .recipe-page .recipe-box h3 {
+    font-size: 1.8rem;
+  }
+
+  .recipe-page .recipe-box li {
+    font-size: .83rem;
+  }
+
+  .recipe-page .recipe-video {
+    width: calc(100% - 12px);
+  }
 }
 
-@media (prefers-reduced-motion:reduce) {
-  .recipe-page * { transition:none!important; }
+@media (prefers-reduced-motion: reduce) {
+  .recipe-page * {
+    transition: none !important;
+  }
 }

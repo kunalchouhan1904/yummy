@@ -708,7 +708,15 @@ iframe {
   .recipe-page .recipe-box ul,
   .recipe-page .recipe-box ol {
     columns: 1;
-    padding-left: 20px;
+    padding-left: 29px;
+    margin-left: 0;
+    list-style-position: outside;
+  }
+
+  /* Keep bullets/numbers inside the card while giving wrapped
+     lines a clean, consistent text edge. */
+  .recipe-page .recipe-box li {
+    padding-left: 1px;
   }
 
   .recipe-page .recipe-box li {
